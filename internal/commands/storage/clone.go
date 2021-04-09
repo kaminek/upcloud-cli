@@ -24,7 +24,7 @@ type cloneParams struct {
 }
 
 // CloneCommand creates the "storage clone" command
-func CloneCommand() commands.NewCommand {
+func CloneCommand() commands.Command {
 	return &cloneCommand{
 		BaseCommand: commands.New("clone", "Clone a storage"),
 	}
@@ -38,7 +38,8 @@ var defaultCloneParams = &cloneParams{
 
 // InitCommand implements Command.InitCommand
 func (s *cloneCommand) InitCommand() {
-	s.SetPositionalArgHelp(positionalArgHelp)
+	// TODO: reimplmement
+	// s.SetPositionalArgHelp(positionalArgHelp)
 	// s.ArgCompletion(getStorageArgumentCompletionFunction(s.service))
 	s.params = cloneParams{CloneStorageRequest: request.CloneStorageRequest{}}
 

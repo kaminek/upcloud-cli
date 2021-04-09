@@ -24,7 +24,7 @@ type templatizeParams struct {
 
 // TemplatizeCommand creates the "storage templatise" command
 // TODO: figure out consistent naming, one way or the other.
-func TemplatizeCommand() commands.NewCommand {
+func TemplatizeCommand() commands.Command {
 	return &templatizeCommand{
 		BaseCommand: commands.New("templatise", "Templatise a storage"),
 	}
@@ -36,7 +36,8 @@ var defaultTemplatizeParams = &templatizeParams{
 
 // InitCommand implements Command.InitCommand
 func (s *templatizeCommand) InitCommand() {
-	s.SetPositionalArgHelp(positionalArgHelp)
+	// TODO: reimplmement
+	// s.SetPositionalArgHelp(positionalArgHelp)
 	// s.ArgCompletion(getStorageArgumentCompletionFunction(s.service))
 	s.params = templatizeParams{TemplatizeStorageRequest: request.TemplatizeStorageRequest{}}
 

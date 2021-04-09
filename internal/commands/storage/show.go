@@ -26,7 +26,9 @@ type showCommand struct {
 
 // InitCommand implements Command.InitCommand
 func (s *showCommand) InitCommand() {
-	s.SetPositionalArgHelp(positionalArgHelp)
+	// TODO: reimplmement
+	// s.SetPositionalArgHelp(positionalArgHelp)
+	// TODO: reimplmement
 	// s.ArgCompletion(getStorageArgumentCompletionFunction(s.Config()))
 }
 

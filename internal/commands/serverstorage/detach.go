@@ -2,9 +2,9 @@ package serverstorage
 
 import (
 	"fmt"
+	"github.com/UpCloudLtd/cli/internal/completion"
 
 	"github.com/UpCloudLtd/cli/internal/commands"
-	"github.com/UpCloudLtd/cli/internal/commands/server"
 	"github.com/UpCloudLtd/cli/internal/output"
 	"github.com/UpCloudLtd/cli/internal/resolver"
 	"github.com/UpCloudLtd/cli/internal/ui"
@@ -16,6 +16,7 @@ import (
 type detachCommand struct {
 	*commands.BaseCommand
 	resolver.CachingServer
+	completion.Server
 	params detachParams
 }
 
@@ -28,7 +29,7 @@ var defaultDetachParams = &detachParams{
 }
 
 // DetachCommand creates the "server storage detach" command
-func DetachCommand() commands.NewCommand {
+func DetachCommand() commands.Command {
 	return &detachCommand{
 		BaseCommand: commands.New("detach", "Detaches a storage resource from a server"),
 	}
@@ -36,8 +37,8 @@ func DetachCommand() commands.NewCommand {
 
 // InitCommand implements Command.InitCommand
 func (s *detachCommand) InitCommand() {
-	s.SetPositionalArgHelp(positionalArgHelp)
-	s.ArgCompletion(server.GetServerArgumentCompletionFunction(s.Config()))
+	// TODO: reimplmement
+	// s.SetPositionalArgHelp(positionalArgHelp)
 	s.params = detachParams{DetachStorageRequest: request.DetachStorageRequest{}}
 
 	flagSet := &pflag.FlagSet{}
@@ -46,12 +47,12 @@ func (s *detachCommand) InitCommand() {
 	s.AddFlags(flagSet)
 }
 
-// MaximumExecutions implements command.NewCommand
+// MaximumExecutions implements command.Command
 func (s *detachCommand) MaximumExecutions() int {
 	return maxServerStorageActions
 }
 
-// Execute implements command.NewCommand
+// Execute implements command.Command
 func (s *detachCommand) Execute(exec commands.Executor, uuid string) (output.Output, error) {
 	storageSvc := exec.Storage()
 

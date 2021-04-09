@@ -2,6 +2,7 @@ package server
 
 import (
 	"fmt"
+	"github.com/UpCloudLtd/cli/internal/completion"
 	"strings"
 	"sync"
 
@@ -15,7 +16,7 @@ import (
 )
 
 // ShowCommand creates the "server show" command
-func ShowCommand() commands.NewCommand {
+func ShowCommand() commands.Command {
 	return &showCommand{
 		BaseCommand: commands.New("show", "Show server details"),
 	}
@@ -24,11 +25,12 @@ func ShowCommand() commands.NewCommand {
 type showCommand struct {
 	*commands.BaseCommand
 	resolver.CachingServer
+	completion.Server
 }
 
 func (s *showCommand) InitCommand() {
-	s.SetPositionalArgHelp(PositionalArgHelp)
-	s.ArgCompletion(GetServerArgumentCompletionFunction(s.Config()))
+	// TODO: reimplmement
+	// s.SetPositionalArgHelp(PositionalArgHelp)
 }
 
 // Execute implements Command.MakeExecuteCommand

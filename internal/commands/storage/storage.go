@@ -2,13 +2,11 @@ package storage
 
 import (
 	"fmt"
+	"github.com/UpCloudLtd/cli/internal/commands"
 	"github.com/UpCloudLtd/cli/internal/ui"
 	"github.com/UpCloudLtd/upcloud-go-api/upcloud"
 	"github.com/UpCloudLtd/upcloud-go-api/upcloud/request"
 	"github.com/UpCloudLtd/upcloud-go-api/upcloud/service"
-	"github.com/spf13/cobra"
-
-	"github.com/UpCloudLtd/cli/internal/commands"
 )
 
 var (
@@ -18,7 +16,8 @@ var (
 	CachedStorages []upcloud.Storage
 )
 
-const positionalArgHelp = "<UUID or Title...>"
+// TODO: re-add
+// const positionalArgHelp = "<UUID or Title...>"
 
 // BaseStorageCommand creates the base "storage" command
 func BaseStorageCommand() commands.Command {
@@ -114,6 +113,8 @@ func (s storageRequest) send(args []string) (interface{}, error) {
 	return s.Handler.Handle(requests)
 }
 
+/*
+TODO: reimplement as completion provider
 func getStorageArgumentCompletionFunction(s service.Storage) func(toComplete string) ([]string, cobra.ShellCompDirective) {
 	return func(toComplete string) ([]string, cobra.ShellCompDirective) {
 		storages, err := s.GetStorages(&request.GetStoragesRequest{})
@@ -127,3 +128,4 @@ func getStorageArgumentCompletionFunction(s service.Storage) func(toComplete str
 		return commands.MatchStringPrefix(vals, toComplete, false), cobra.ShellCompDirectiveNoSpace | cobra.ShellCompDirectiveNoFileComp
 	}
 }
+*/

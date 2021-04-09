@@ -16,8 +16,7 @@ import (
 
 type modifyCommand struct {
 	*commands.BaseCommand
-	service service.Storage
-	params  modifyParams
+	params modifyParams
 }
 
 type modifyParams struct {
@@ -37,21 +36,23 @@ var defaultBackupRuleParams = upcloud.BackupRule{
 }
 
 // ModifyCommand creates the "storage modify" command
-func ModifyCommand() commands.NewCommand {
+func ModifyCommand() commands.Command {
 	return &modifyCommand{
 		BaseCommand: commands.New("modify", "Modify a storage"),
 	}
 }
 
-// MaximumExecutions implements command.NewCommand
+// MaximumExecutions implements command.Command
 func (s *modifyCommand) MaximumExecutions() int {
 	return maxStorageActions
 }
 
 // InitCommand implements Command.InitCommand
 func (s *modifyCommand) InitCommand() {
-	s.SetPositionalArgHelp(positionalArgHelp)
-	s.ArgCompletion(getStorageArgumentCompletionFunction(s.service))
+	// TODO: reimplmement
+	// s.SetPositionalArgHelp(positionalArgHelp)
+	// TODO: reimplmement
+	// s.ArgCompletion(getStorageArgumentCompletionFunction(s.service))
 	s.params = modifyParams{ModifyStorageRequest: request.ModifyStorageRequest{}}
 
 	flagSet := &pflag.FlagSet{}
@@ -123,7 +124,7 @@ func setBackupFields(storageUUID string, p modifyParams, service service.Storage
 	return nil
 }
 
-// Execute implements command.NewCommand
+// Execute implements command.Command
 func (s *modifyCommand) Execute(exec commands.Executor, uuid string) (output.Output, error) {
 	svc := exec.Storage()
 	msg := fmt.Sprintf("modifing storage %v", uuid)

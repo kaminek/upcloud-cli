@@ -2,6 +2,7 @@ package server
 
 import (
 	"fmt"
+	"github.com/UpCloudLtd/cli/internal/completion"
 
 	"github.com/UpCloudLtd/cli/internal/commands"
 	"github.com/UpCloudLtd/cli/internal/commands/storage"
@@ -16,6 +17,7 @@ import (
 type loadCommand struct {
 	*commands.BaseCommand
 	resolver.CachingServer
+	completion.Server
 	params loadParams
 }
 
@@ -36,8 +38,8 @@ var defaultLoadParams = &loadParams{
 
 // InitCommand implements Command.InitCommand
 func (s *loadCommand) InitCommand() {
-	s.SetPositionalArgHelp(PositionalArgHelp)
-	s.ArgCompletion(GetServerArgumentCompletionFunction(s.Config()))
+	// TODO: reimplmement
+	// s.SetPositionalArgHelp(PositionalArgHelp)
 	s.params = loadParams{LoadCDROMRequest: request.LoadCDROMRequest{}}
 
 	flagSet := &pflag.FlagSet{}

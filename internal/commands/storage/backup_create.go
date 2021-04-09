@@ -23,7 +23,7 @@ type createBackupParams struct {
 }
 
 // CreateBackupCommand creates the "storage backup create" command
-func CreateBackupCommand() commands.NewCommand {
+func CreateBackupCommand() commands.Command {
 	return &createBackupCommand{
 		BaseCommand: commands.New("create", "Create backup of a storage"),
 	}
@@ -35,7 +35,8 @@ var defaultCreateBackupParams = &createBackupParams{
 
 // InitCommand implements Command.InitCommand
 func (s *createBackupCommand) InitCommand() {
-	s.SetPositionalArgHelp(positionalArgHelp)
+	// TODO: reimplmement
+	// s.SetPositionalArgHelp(positionalArgHelp)
 	// s.ArgCompletion(getStorageArgumentCompletionFunction(s.service))
 	s.params = createBackupParams{CreateBackupRequest: request.CreateBackupRequest{}}
 
@@ -45,7 +46,7 @@ func (s *createBackupCommand) InitCommand() {
 	s.AddFlags(flagSet)
 }
 
-// Execute implements command.NewCommand
+// Execute implements command.Command
 func (s *createBackupCommand) Execute(exec commands.Executor, uuid string) (output.Output, error) {
 	svc := exec.Storage()
 

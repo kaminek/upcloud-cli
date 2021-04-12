@@ -11,9 +11,6 @@ import (
 
 const maxIPAddressActions = 10
 
-// TODO: re-add
-// const positionalArgHelp = "<Address/PTRRecord...>"
-
 // BaseIPAddressCommand creates the base 'ip-address' command
 func BaseIPAddressCommand() commands.Command {
 	return &ipAddressCommand{commands.New("ip-address", "Manage ip address")}

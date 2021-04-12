@@ -10,6 +10,7 @@ import (
 
 	"github.com/UpCloudLtd/cli/internal/commands"
 	"github.com/UpCloudLtd/cli/internal/config"
+	"github.com/UpCloudLtd/cli/internal/log"
 	"github.com/UpCloudLtd/cli/internal/terminal"
 	"github.com/UpCloudLtd/cli/internal/ui"
 )
@@ -27,6 +28,9 @@ func BuildRootCmd(_ []string, conf *config.Config) cobra.Command {
 			}
 
 			terminal.ForceColours(conf.GlobalFlags.Colors)
+			if err := log.SetDebugMode(conf.GlobalFlags.Debug); err != nil {
+				return fmt.Errorf("cannot set debug mode: %w", err)
+			}
 
 			if err := conf.Load(); err != nil {
 				return fmt.Errorf("cannot load configuration: %w", err)
@@ -51,6 +55,10 @@ func BuildRootCmd(_ []string, conf *config.Config) cobra.Command {
 	flags.BoolVar(
 		&conf.GlobalFlags.Colors, "colours", true,
 		"Use terminal colours (supported: auto, true, false)",
+	)
+	flags.BoolVar(
+		&conf.GlobalFlags.Debug, "debug", false,
+		"Print out more verbose debug logs",
 	)
 	flags.DurationVarP(
 		&conf.GlobalFlags.ClientTimeout, "client-timeout", "t",

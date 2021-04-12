@@ -2,10 +2,11 @@ package ipaddress
 
 import (
 	"fmt"
+	"net"
+
 	"github.com/UpCloudLtd/cli/internal/commands"
 	"github.com/UpCloudLtd/upcloud-go-api/upcloud"
 	"github.com/UpCloudLtd/upcloud-go-api/upcloud/service"
-	"net"
 )
 
 const maxIPAddressActions = 10

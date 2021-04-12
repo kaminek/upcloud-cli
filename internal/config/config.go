@@ -7,6 +7,7 @@ import (
 	"strings"
 	"time"
 
+	debug "github.com/UpCloudLtd/cli/internal/log"
 	internal "github.com/UpCloudLtd/cli/internal/service"
 	"github.com/UpCloudLtd/cli/internal/terminal"
 
@@ -49,9 +50,10 @@ func New() *Config {
 // GlobalFlags holds information on the flags shared among all commands
 type GlobalFlags struct {
 	ConfigFile    string        `valid:"-"`
-	OutputFormat  string        `valid:"in(human|json|yaml)"`
-	Colors        bool          `valid:"-"`
 	ClientTimeout time.Duration `valid:"-"`
+	Colors        bool          `valid:"-"`
+	Debug         bool          `valid:"-"`
+	OutputFormat  string        `valid:"in(human|json|yaml)"`
 	Wait          bool          `valid:"-"`
 }
 
@@ -93,6 +95,10 @@ func (s *Config) Load() error {
 
 	v.Set("config", v.ConfigFileUsed())
 
+	if s.GlobalFlags.Debug {
+		debug.Debug("Load cli", "User config after loading and setting up service")
+		v.Debug()
+	}
 	return nil
 
 }
